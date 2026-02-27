@@ -145,7 +145,7 @@ export default function Hero() {
                 {/* Gradient backdrop behind image */}
                 <div className="hero-profile-backdrop" />
                 <img
-                  src="/profile.png"
+                  src={`${import.meta.env.BASE_URL}profile.png`}
                   alt={siteConfig.name}
                   className="hero-profile-img"
                   onError={(e) => {

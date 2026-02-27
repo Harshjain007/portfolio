@@ -7,8 +7,8 @@ export const siteConfig = {
   email: "harsh8425@gmail.com",
   phone: "+91 8251087474",
   location: "Indore, India",
-  resumeUrl: "/resume.pdf",
-  profileImage: "/profile.png",
+  resumeUrl: "/portfolio/resume.pdf",
+  profileImage: "/portfolio/profile.png",
   social: {
     github: "https://github.com/harshjain",
     linkedin: "https://linkedin.com/in/harshjain",
