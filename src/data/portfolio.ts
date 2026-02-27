@@ -3,9 +3,8 @@ export const siteConfig = {
   title: "Full Stack Developer",
   tagline: "Building High-Performance Web Experiences",
   description:
-    "Performance-driven MERN Stack Developer with 3+ years of experience specializing in secure full-stack solutions with a focus on frontend architecture, real-time technologies, and scalable systems.",
+    "Performance-driven MERN Stack Developer with 4+ years of experience specializing in secure full-stack solutions with a focus on frontend architecture, real-time technologies, and scalable systems.",
   email: "harsh8425@gmail.com",
-  phone: "+91 8251087474",
   location: "Indore, India",
   resumeUrl: "/portfolio/resume.pdf",
   profileImage: "/portfolio/profile.png",
@@ -27,7 +26,7 @@ export const aboutStats = [
   { label: "Years Experience", value: "4+" },
   { label: "Projects Delivered", value: "6+" },
   { label: "Technologies", value: "15+" },
-  { label: "Team Leadership", value: "4 devs" },
+  // { label: "Team Leadership", value: "4 devs" },
 ];
 
 export const aboutHighlights = [
