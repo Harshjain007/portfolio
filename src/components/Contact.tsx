@@ -2,14 +2,41 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { siteConfig } from '../data/portfolio';
 
+const FORMSPREE_URL = 'https://formspree.io/f/mlgwvlvw';
+
+type FormStatus = 'idle' | 'sending' | 'success' | 'error';
+
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [status, setStatus] = useState<FormStatus>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(formData.subject || 'Portfolio Contact from ' + formData.name);
-    const body = encodeURIComponent('Name: ' + formData.name + '\nEmail: ' + formData.email + '\n\n' + formData.message);
-    window.location.href = 'mailto:' + siteConfig.email + '?subject=' + subject + '&body=' + body;
+    setStatus('sending');
+
+    try {
+      const res = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'Portfolio Contact from ' + formData.name,
+          message: formData.message,
+        }),
+      });
+
+      if (res.ok) {
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
+
+    setTimeout(() => setStatus('idle'), 5000);
   };
 
   return (
@@ -115,17 +142,37 @@ export default function Contact() {
                   required
                 />
               </div>
+              {status === 'success' && (
+                <div className="mb-3 p-3" style={{ background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: 8, color: '#10b981', fontSize: 14, textAlign: 'center' }}>
+                  ✅ Message sent successfully! I'll get back to you soon.
+                </div>
+              )}
+              {status === 'error' && (
+                <div className="mb-3 p-3" style={{ background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: 8, color: '#ef4444', fontSize: 14, textAlign: 'center' }}>
+                  ❌ Failed to send message. Please try again or email me directly.
+                </div>
+              )}
               <motion.button
                 type="submit"
                 className="btn-primary-custom w-100 justify-content-center"
-                style={{ padding: '14px' }}
+                style={{ padding: '14px', opacity: status === 'sending' ? 0.7 : 1 }}
                 whileHover={{ scale: 1.01 }}
                 whileTap={{ scale: 0.99 }}
+                disabled={status === 'sending'}
               >
-                Send Message
-                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
+                {status === 'sending' ? (
+                  <>
+                    Sending...
+                    <span className="spinner-border spinner-border-sm ms-2" role="status" aria-hidden="true"></span>
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </>
+                )}
               </motion.button>
             </form>
           </div>
