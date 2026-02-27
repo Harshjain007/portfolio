@@ -38,13 +38,13 @@ export default function Contact() {
                     <div className="contact-info-val">{siteConfig.email}</div>
                   </div>
                 </a>
-                <div className="d-flex align-items-center gap-3">
-                  <div className="contact-icon">📞</div>
-                  <div>
+                {/* <div className="d-flex align-items-center gap-3"> */}
+                  {/* <div className="contact-icon">📞</div> */}
+                  {/* <div>
                     <div className="contact-info-label">Phone</div>
                     <div className="contact-info-val">{siteConfig.phone}</div>
-                  </div>
-                </div>
+                  </div> */}
+                {/* </div> */}
                 <div className="d-flex align-items-center gap-3">
                   <div className="contact-icon">📍</div>
                   <div>
