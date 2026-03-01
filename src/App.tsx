@@ -8,12 +8,14 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import FloatingBackground from './components/FloatingBackground'
 import SectionNav from './components/SectionNav'
+import OpenToWork from './components/OpenToWork'
 
 function App() {
   return (
     <>
       <FloatingBackground />
       <SectionNav />
+      <OpenToWork />
       <Navbar />
       <Hero />
       <About />

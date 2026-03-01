@@ -1,11 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { siteConfig } from '../data/portfolio';
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 300);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="navbar-custom">
+    <nav className={`navbar-custom ${scrolled ? 'navbar-scrolled' : ''}`}>
       <div className="container">
         <div className="d-flex align-items-center justify-content-between">
           <a href="#" className="d-flex align-items-center text-decoration-none">
