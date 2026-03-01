@@ -130,16 +130,29 @@ export interface Project {
 }
 
 export const personalProjects: Project[] = [
-  // Add your personal projects here. Example:
-  // {
-  //   title: "My Personal App",
-  //   subtitle: "A cool side project",
-  //   description: "Description of what it does...",
-  //   highlights: ["Feature 1", "Feature 2"],
-  //   techStack: ["React", "Node.js"],
-  //   github: "https://github.com/harshjain/project",
-  //   demo: "https://project.vercel.app",
-  // },
+  {
+    title: "Portfolio",
+    subtitle: "Personal Developer Portfolio",
+    description:
+      "A modern, responsive developer portfolio built with React, TypeScript, and Vite. Features floating tech-icon background animations, scroll-aware navigation, Formspree contact form integration, and automated GitHub Pages deployment.",
+    highlights: [
+      "Built with React 19, TypeScript, and Vite for blazing-fast performance",
+      "Animated floating tech-icon background with parallax scroll using Framer Motion",
+      "Integrated Formspree for direct contact form email delivery",
+      "Scroll-aware dot navigation and Open to Work banner",
+      "Automated CI/CD deployment to GitHub Pages via gh-pages",
+    ],
+    techStack: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Framer Motion",
+      "Bootstrap",
+      "GitHub Pages",
+    ],
+    github: "https://github.com/Harshjain007/portfolio",
+    demo: "https://harshjain007.github.io/portfolio/",
+  },
 ];
 
 export const professionalProjects: Project[] = [
