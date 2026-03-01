@@ -9,9 +9,8 @@ export const siteConfig = {
   resumeUrl: "/portfolio/resume.pdf",
   profileImage: "/portfolio/profile.png",
   social: {
-    github: "https://github.com/harshjain",
-    linkedin: "https://linkedin.com/in/harshjain",
-    twitter: "https://twitter.com/harshjain",
+    github: "https://github.com/Harshjain007",
+    linkedin: "https://www.linkedin.com/in/harsh-jain-0109/",
   },
   navLinks: [
     { label: "About", href: "#about" },
@@ -234,7 +233,7 @@ export const experiences: Experience[] = [
     company: "Gammastack (GrepRuby Webtech)",
     location: "Indore",
     role: "Full Stack Developer | Frontend Developer | Solution Engineer",
-    period: "Jun 2022 - Present",
+    period: "Jun 2022 - Jan 2026",
     type: "fulltime",
     description:
       "Full-stack Developer building responsive, real-time web applications using the MERN stack with PostgreSQL.",

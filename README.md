@@ -12,7 +12,7 @@ Performance-driven MERN Stack Developer with 4+ years of experience specializing
 
 - 📍 Indore, India
 - 📧 harsh8425@gmail.com
-- 🔗 [GitHub](https://github.com/Harshjain007) · [LinkedIn](https://linkedin.com/in/harshjain) · [Twitter](https://twitter.com/harshjain)
+- 🔗 [GitHub](https://github.com/Harshjain007) · [LinkedIn](https://www.linkedin.com/in/harsh-jain-0109/)
 
 | | |
 |---|---|
