@@ -17,59 +17,43 @@ export default function Hero() {
   return (
     <section id="hero" className="hero">
       <div className="container">
-        <div className="hero__grid">
-          {/* ── Main panel ── */}
-          <motion.div
-            className="panel hero__main"
-            initial="hidden"
-            animate="show"
-            custom={0}
-            variants={rise}
-          >
-            <motion.p className="hero__eyebrow" custom={1} variants={rise}>
-              {siteConfig.title} · {siteConfig.location}
-            </motion.p>
+        <motion.div
+          className="panel hero__main"
+          initial="hidden"
+          animate="show"
+          custom={0}
+          variants={rise}
+        >
+          <motion.p className="hero__eyebrow" custom={1} variants={rise}>
+            {siteConfig.title} · {siteConfig.location}
+          </motion.p>
 
-            <motion.h1 className="hero__name" custom={2} variants={rise}>
-              <span>{firstName}</span>
-              <span className="last">{rest.join(' ')}</span>
-            </motion.h1>
+          <motion.h1 className="hero__name" custom={2} variants={rise}>
+            <span>{firstName}</span>
+            <span className="last">{rest.join(' ')}</span>
+          </motion.h1>
 
-            <motion.p className="hero__desc" custom={3} variants={rise}>
-              {siteConfig.heroPitch}
-            </motion.p>
+          <motion.p className="hero__desc" custom={3} variants={rise}>
+            {siteConfig.heroPitch}
+          </motion.p>
 
-            <motion.div className="hero__stats" custom={4} variants={rise}>
-              {aboutStats.map((stat) => (
-                <div className="stat" key={stat.label}>
-                  <div className="stat__value">{stat.value}</div>
-                  <div className="stat__label">{stat.label}</div>
-                </div>
-              ))}
-            </motion.div>
+          <motion.div className="hero__stats" custom={4} variants={rise}>
+            {aboutStats.map((stat) => (
+              <div className="stat" key={stat.label}>
+                <div className="stat__value">{stat.value}</div>
+                <div className="stat__label">{stat.label}</div>
+              </div>
+            ))}
           </motion.div>
 
-          {/* ── Portrait + status ── */}
-          <motion.div
-            className="hero__aside"
-            initial="hidden"
-            animate="show"
-            custom={2}
-            variants={rise}
-          >
-            <div className="hero__portrait">
-              <img
-                src={siteConfig.profileImage}
-                alt={`${siteConfig.name} — illustrated portrait`}
-                loading="eager"
-              />
-            </div>
-            <div className="hero__status">
-              <span className="pulse-dot" />
-              status:&nbsp;<b>{siteConfig.availability}</b>
-            </div>
+          <motion.div className="hero__status" custom={5} variants={rise}>
+            <span className="pulse-dot" />
+            status:&nbsp;<b>{siteConfig.availability}</b>
+            <a className="hero__cta" href={siteConfig.resumeUrl} target="_blank" rel="noopener noreferrer">
+              ↓ Résumé
+            </a>
           </motion.div>
-        </div>
+        </motion.div>
 
         <TechMarquee />
       </div>

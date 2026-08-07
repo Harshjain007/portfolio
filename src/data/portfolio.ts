@@ -8,7 +8,6 @@ export const siteConfig = {
   phone: "+91 82510 87474",
   location: "Indore, India",
   resumeUrl: "/portfolio/resume.pdf",
-  profileImage: "/portfolio/harsh-vector.png",
   availability: "available for senior / freelance roles",
   heroPitch:
     "I build secure, scalable systems — real-time gaming platforms, B2B/B2C admin dashboards and multi-tenant microservices. Now pushing deep into Generative AI, agents and MCP.",

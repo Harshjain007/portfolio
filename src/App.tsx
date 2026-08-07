@@ -1,4 +1,5 @@
 import GridBackground from './components/GridBackground';
+import PointerGlow from './components/PointerGlow';
 import Navbar from './components/Navbar';
 import SectionNav from './components/SectionNav';
 import Hero from './components/Hero';
@@ -12,6 +13,7 @@ export default function App() {
   return (
     <>
       <GridBackground />
+      <PointerGlow />
       <Navbar />
       <SectionNav />
       <main>

@@ -53,8 +53,10 @@
   --tag: #ff7a66;
 
   --glow: rgba(185, 242, 76, 0.18);
+  --glow-cursor: rgba(185, 242, 76, 0.16);
+  --glow-blend: screen;
+  --glow-size: 340px;
   --shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
-  --portrait-bg: radial-gradient(60% 55% at 50% 40%, rgba(185, 242, 76, 0.16), transparent 70%), #0b0e13;
 }
 
 /* Light — warm beige paper, same neon lime glow */
@@ -82,8 +84,10 @@
   --tag: #b4471b;
 
   --glow: rgba(178, 235, 70, 0.45);
+  --glow-cursor: rgba(214, 255, 120, 0.55);
+  --glow-blend: hard-light;
+  --glow-size: 300px;
   --shadow: 0 20px 50px rgba(60, 50, 30, 0.14);
-  --portrait-bg: radial-gradient(60% 55% at 50% 40%, rgba(185, 242, 76, 0.2), transparent 70%), #0b0e13;
 }
 
 /* ─── 2. Reset & Base ──────────────────────────────────────────────────── */
@@ -110,6 +114,14 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
+  /* Hand cursor everywhere; text fields keep their caret below. */
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  cursor: text;
 }
 
 img {
@@ -253,6 +265,34 @@ ul {
   bottom: 8%;
   left: -140px;
   background: color-mix(in srgb, var(--accent-2) 18%, transparent);
+}
+
+/* ─── 3c. Pointer Glow ─────────────────────────────────────────────────── */
+/* Follows the cursor and lightens whatever sits under it. Coordinates come
+   from PointerGlow.tsx via --px / --py; blend mode is theme-dependent so the
+   wash reads as "light" on both the near-black and the beige surfaces. */
+.pointer-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  mix-blend-mode: var(--glow-blend);
+  background: radial-gradient(
+    var(--glow-size) circle at var(--px, 50%) var(--py, 50%),
+    var(--glow-cursor),
+    transparent 68%
+  );
+}
+.pointer-glow[data-visible='true'] {
+  opacity: 1;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .pointer-glow {
+    display: none;
+  }
 }
 
 /* ─── 4. Buttons ───────────────────────────────────────────────────────── */
@@ -505,15 +545,8 @@ ul {
   z-index: 1;
 }
 
-.hero__grid {
-  display: grid;
-  grid-template-columns: 1.32fr 1fr;
-  gap: 20px;
-  align-items: stretch;
-}
-
 .hero__main {
-  padding: 40px 42px 36px;
+  padding: 34px 38px 30px;
   overflow: hidden;
 }
 .hero__main::before {
@@ -543,15 +576,15 @@ ul {
 
 .hero__name {
   font-family: var(--font-display);
-  font-size: clamp(46px, 7vw, 76px);
+  font-size: clamp(42px, 6vw, 68px);
   font-weight: 700;
-  line-height: 0.94;
+  line-height: 0.96;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  margin-bottom: 22px;
-}
-.hero__name span {
-  display: block;
+  margin-bottom: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.28em;
 }
 .hero__name .last {
   background: linear-gradient(96deg, var(--accent), var(--accent-2));
@@ -564,8 +597,8 @@ ul {
   font-size: 15.5px;
   line-height: 1.75;
   color: var(--text-dim);
-  max-width: 52ch;
-  margin-bottom: 30px;
+  max-width: 68ch;
+  margin-bottom: 24px;
 }
 
 .hero__stats {
@@ -604,82 +637,32 @@ ul {
   line-height: 1.5;
 }
 
-/* Portrait side */
-.hero__aside {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.hero__portrait {
-  flex: 1;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--line);
-  background: var(--portrait-bg);
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 420px;
-}
-.hero__portrait::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-.hero__portrait::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 58%;
-  height: 62%;
-  border-radius: 50%;
-  background: var(--glow);
-  filter: blur(46px);
-}
-/* Portrait is cropped tight to the figure, then rendered at half the
-   panel height so it reads as a subject inside the frame, not a backdrop. */
-.hero__portrait img {
-  position: relative;
-  z-index: 2;
-  height: 50%;
-  width: auto;
-  max-width: 60%;
-  object-fit: contain;
-  animation: float 7s ease-in-out infinite;
-}
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
 .hero__status {
+  margin-top: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--panel);
+  background: var(--panel-2);
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--text-faint);
   letter-spacing: 0.02em;
+  flex-wrap: wrap;
 }
 .hero__status b {
   color: var(--accent);
   font-weight: 500;
+}
+.hero__cta {
+  margin-left: auto;
+  color: var(--text-dim);
+  transition: color 0.2s;
+}
+.hero__cta:hover {
+  color: var(--accent);
 }
 
 /* ─── 7b. Tech marquee ─────────────────────────────────────────────────── */
@@ -1236,25 +1219,18 @@ textarea.field__input {
   .skills__grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .hero__grid {
-    grid-template-columns: 1.15fr 1fr;
-  }
 }
 
 @media (max-width: 900px) {
   :root {
     --gutter: 20px;
   }
-  .hero__grid,
   .split,
   .contact__grid {
     grid-template-columns: 1fr;
   }
   .hero__main {
-    padding: 32px 26px 30px;
-  }
-  .hero__portrait {
-    min-height: 340px;
+    padding: 28px 22px 26px;
   }
   .about__grid {
     grid-template-columns: 1fr;
