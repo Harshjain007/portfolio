@@ -1,61 +1,41 @@
 import { useEffect, useState } from 'react';
+import { sectionIds } from '../data/portfolio';
 
-const sections = [
-  { id: 'hero', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'contact', label: 'Contact' },
-];
-
+/** Right-hand dot rail that highlights the section currently in view. */
 export default function SectionNav() {
-  const [active, setActive] = useState('hero');
-  const [visible, setVisible] = useState(false);
+  const [active, setActive] = useState<string>(sectionIds[0]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Show after scrolling past 200px
-      setVisible(window.scrollY > 200);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] },
+    );
 
-      // Find current section
-      const scrollPos = window.scrollY + window.innerHeight / 3;
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i].id);
-        if (el && el.offsetTop <= scrollPos) {
-          setActive(sections[i].id);
-          break;
-        }
-      }
-    };
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => observer.disconnect();
   }, []);
 
-  const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
-    <nav
-      className={`section-nav ${visible ? 'section-nav-visible' : ''}`}
-      aria-label="Section navigation"
-    >
-      {sections.map((section) => (
-        <button
-          key={section.id}
-          className={`section-nav-dot ${active === section.id ? 'active' : ''}`}
-          onClick={() => scrollTo(section.id)}
-          aria-label={section.label}
-          title={section.label}
+    <nav className="dotnav" aria-label="Section navigation">
+      {sectionIds.map((id) => (
+        <a
+          key={id}
+          href={`#${id}`}
+          aria-label={id}
+          aria-current={active === id ? 'true' : undefined}
+          className={`dotnav__dot${active === id ? ' dotnav__dot--active' : ''}`}
         >
-          <span className="section-nav-tooltip">{section.label}</span>
-          <span className="section-nav-circle" />
-        </button>
+          <span className="dotnav__tip">{id}</span>
+        </a>
       ))}
     </nav>
   );

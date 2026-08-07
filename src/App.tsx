@@ -1,31 +1,27 @@
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import About from './components/About'
-import Skills from './components/Skills'
-import Projects from './components/Projects'
-import Experience from './components/Experience'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
-import FloatingBackground from './components/FloatingBackground'
-import SectionNav from './components/SectionNav'
-import OpenToWork from './components/OpenToWork'
+import GridBackground from './components/GridBackground';
+import Navbar from './components/Navbar';
+import SectionNav from './components/SectionNav';
+import Hero from './components/Hero';
+import About from './components/About';
+import Skills from './components/Skills';
+import Work from './components/Work';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 
-function App() {
+export default function App() {
   return (
     <>
-      <FloatingBackground />
-      <SectionNav />
-      <OpenToWork />
+      <GridBackground />
       <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Contact />
+      <SectionNav />
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Work />
+        <Contact />
+      </main>
       <Footer />
     </>
-  )
+  );
 }
-
-export default App

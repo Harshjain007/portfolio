@@ -8,25 +8,54 @@ export const siteConfig = {
   phone: "+91 82510 87474",
   location: "Indore, India",
   resumeUrl: "/portfolio/resume.pdf",
-  profileImage: "/portfolio/profile.png",
+  profileImage: "/portfolio/harsh-vector.png",
+  availability: "available for senior / freelance roles",
+  heroPitch:
+    "I build secure, scalable systems — real-time gaming platforms, B2B/B2C admin dashboards and multi-tenant microservices. Now pushing deep into Generative AI, agents and MCP.",
   social: {
     github: "https://github.com/Harshjain007",
     linkedin: "https://www.linkedin.com/in/harsh-jain-0109/",
   },
   navLinks: [
-    { label: "About", href: "#about" },
+    { label: "Profile", href: "#about" },
     { label: "Skills", href: "#skills" },
-    { label: "Projects", href: "#projects" },
-    { label: "Experience", href: "#experience" },
+    { label: "Work", href: "#work" },
+    { label: "Timeline", href: "#timeline" },
     { label: "Contact", href: "#contact" },
   ],
 };
 
+/** Sections tracked by the right-hand dot navigation, in document order. */
+export const sectionIds = [
+  "hero",
+  "about",
+  "skills",
+  "work",
+  "timeline",
+  "contact",
+] as const;
+
+/** Technologies cycled through the hero marquee strip. */
+export const marqueeTech = [
+  "React",
+  "Node.js",
+  "TypeScript",
+  "PostgreSQL",
+  "Socket.IO",
+  "Redis",
+  "Docker",
+  "AWS",
+  "BullMQ",
+  "MongoDB",
+  "Express.js",
+  "GitHub Actions",
+];
+
 export const aboutStats = [
-  { label: "Years Experience", value: "4+" },
-  { label: "Platforms Delivered", value: "10+" },
-  { label: "Technologies", value: "20+" },
-  // { label: "Team Leadership", value: "4 devs" },
+  { label: "Years Shipping", value: "4+" },
+  { label: "Gaming Platforms", value: "10+" },
+  { label: "REST APIs Built", value: "100+" },
+  { label: "Fewer Deploy Fails", value: "~80%" },
 ];
 
 export const aboutHighlights = [

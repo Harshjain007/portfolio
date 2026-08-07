@@ -1,10 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/portfolio/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Harsh Jain | Full Stack Developer</title>
+    <meta name="theme-color" content="#0a0c10" />
+    <meta
+      name="description"
+      content="Harsh Jain — Senior Full Stack Developer building secure, scalable real-time platforms with React, Node.js, PostgreSQL and Socket.IO."
+    />
+    <title>Harsh Jain | Senior Full Stack Developer</title>
+    <script>
+      // Apply the stored theme before first paint to avoid a flash of the wrong theme.
+      (function () {
+        try {
+          var stored = localStorage.getItem('hj-theme');
+          document.documentElement.dataset.theme =
+            stored === 'light' || stored === 'dark' ? stored : 'dark';
+        } catch (e) {
+          document.documentElement.dataset.theme = 'dark';
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

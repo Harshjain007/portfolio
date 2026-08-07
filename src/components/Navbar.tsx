@@ -1,72 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { siteConfig } from '../data/portfolio';
+import ThemeToggle from './ThemeToggle';
 
 export default function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 300);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const classes = ['nav', scrolled && 'nav--scrolled', open && 'nav--open']
+    .filter(Boolean)
+    .join(' ');
+
   return (
-    <nav className={`navbar-custom ${scrolled ? 'navbar-scrolled' : ''}`}>
-      <div className="container">
-        <div className="d-flex align-items-center justify-content-between">
-          <a href="#" className="d-flex align-items-center text-decoration-none">
-            <span className="nav-brand-name">{siteConfig.name}</span>
-            <span className="nav-title-sep">{siteConfig.title}</span>
-          </a>
+    <header className={classes}>
+      <div className="nav__inner">
+        <a href="#hero" className="nav__brand" onClick={() => setOpen(false)}>
+          <span className="pulse-dot" />
+          <strong>Harsh.Jain</strong>
+          <span>/ Dev Console</span>
+        </a>
 
-          {/* Desktop Nav */}
-          <div className="d-none d-lg-flex align-items-center gap-1">
-            {siteConfig.navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="nav-link-custom">
-                {link.label}
-              </a>
-            ))}
-            <a href={siteConfig.resumeUrl} className="nav-cta" target="_blank" rel="noopener noreferrer">
-              Resume
+        <nav className="nav__links">
+          {siteConfig.navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="nav__link"
+              onClick={() => setOpen(false)}
+            >
+              {link.label}
             </a>
-          </div>
+          ))}
+        </nav>
 
-          {/* Mobile Toggle */}
+        <div className="nav__actions">
+          <ThemeToggle />
+          <a href="#contact" className="btn btn--solid">
+            Hire me
+          </a>
           <button
-            className="d-lg-none bg-transparent border-0 p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            type="button"
+            className="nav__burger"
+            aria-label="Toggle navigation"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
           >
-            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#ECDFCC" strokeWidth={2}>
-              {mobileOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-              )}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              {open ? <path d="M18 6 6 18M6 6l12 12" /> : <path d="M3 6h18M3 12h18M3 18h18" />}
             </svg>
           </button>
         </div>
-
-        {/* Mobile Menu */}
-        {mobileOpen && (
-          <div className="d-lg-none mt-3 pb-3 d-flex flex-column gap-2">
-            {siteConfig.navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="nav-link-custom"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
-            <a href={siteConfig.resumeUrl} className="nav-cta text-center mt-2" target="_blank" rel="noopener noreferrer">
-              Resume
-            </a>
-          </div>
-        )}
       </div>
-    </nav>
+    </header>
   );
 }
