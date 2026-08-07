@@ -8,6 +8,7 @@ const categoryEmojis: Record<string, string> = {
   realtime: '⚡',
   devops: '☁️',
   methods: '🔄',
+  ai: '🤖',
 };
 
 export default function Skills() {
