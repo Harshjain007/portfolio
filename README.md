@@ -2,7 +2,9 @@
 
 🌐 **Live:** [harshjain007.github.io/portfolio](https://harshjain007.github.io/portfolio/)
 
-> Building High-Performance Web Experiences
+> Building High-Performance Web Experiences — available for freelance projects & contracts
+
+**What's on the site:** 18 products built end to end (each with an animated step-by-step walkthrough), the services I offer, client/team work, a timeline, and a project-inquiry form. Motion is done with Framer Motion throughout; `prefers-reduced-motion` is respected.
 
 Performance-driven MERN Stack Developer with 4+ years of experience specializing in secure full-stack solutions with a focus on frontend architecture, real-time technologies, and scalable systems.
 
@@ -10,7 +12,7 @@ Performance-driven MERN Stack Developer with 4+ years of experience specializing
 
 ## 👤 About Me
 
-- 📍 Indore, India
+- 📍 India · Remote
 - 📧 harsh8425@gmail.com
 - 🔗 [GitHub](https://github.com/Harshjain007) · [LinkedIn](https://www.linkedin.com/in/harsh-jain-0109/)
 

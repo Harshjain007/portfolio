@@ -1,22 +1,20 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { personalProjects, professionalProjects, type Project } from '../data/portfolio';
-
-type TabKey = 'professional' | 'personal';
-
-const TABS: { key: TabKey; label: string; items: Project[] }[] = [
-  { key: 'professional', label: 'Professional', items: professionalProjects },
-  { key: 'personal', label: 'Personal', items: personalProjects },
-];
+import { AnimatePresence, motion } from 'framer-motion';
+import { professionalProjects, type Project } from '../data/portfolio';
+import { SectionLabel } from './motion';
+import { EASE } from '../hooks/ease';
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <motion.article
       className="panel panel--hover work"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ delay: index * 0.06, duration: 0.45 }}
+      transition={{ delay: index * 0.07, duration: 0.5, ease: EASE }}
+      whileHover={{ y: -3 }}
     >
       <header className="work__head">
         <h3 className="work__title">{project.title}</h3>
@@ -24,6 +22,29 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </header>
 
       <p className="work__desc">{project.description}</p>
+
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.ul
+            className="work__more"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: EASE }}
+          >
+            {project.highlights.map((h, i) => (
+              <motion.li
+                key={h}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.06 * i }}
+              >
+                {h}
+              </motion.li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
 
       <div className="work__tags">
         {project.techStack.map((tech) => (
@@ -33,51 +54,26 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         ))}
       </div>
 
-      {(project.github || project.demo || project.teamSize) && (
-        <div className="work__links">
-          {project.github && (
-            <a className="work__link" href={project.github} target="_blank" rel="noopener noreferrer">
-              ↗ Source
-            </a>
-          )}
-          {project.demo && (
-            <a className="work__link" href={project.demo} target="_blank" rel="noopener noreferrer">
-              ↗ Live demo
-            </a>
-          )}
-          {project.teamSize && <span className="work__link">team of {project.teamSize}</span>}
-        </div>
-      )}
+      <div className="work__links">
+        <button type="button" className="work__toggle" onClick={() => setOpen((v) => !v)} aria-expanded={open}>
+          <motion.span animate={{ rotate: open ? 90 : 0 }} style={{ display: 'inline-block' }}>
+            ▸
+          </motion.span>{' '}
+          {open ? 'Hide details' : 'What I built'}
+        </button>
+        {project.teamSize && <span className="work__link">team of {project.teamSize}</span>}
+      </div>
     </motion.article>
   );
 }
 
-/** Left column of the Work section — tabbed project list. */
+/** Left column of the Work section — professional / team projects. */
 export default function Projects() {
-  const [tab, setTab] = useState<TabKey>('professional');
-  const active = TABS.find((t) => t.key === tab) ?? TABS[0];
-
   return (
     <div>
-      <h2 className="sec-label">Selected Work</h2>
-
-      <div className="tabs" role="tablist" aria-label="Project category">
-        {TABS.map((t) => (
-          <button
-            key={t.key}
-            type="button"
-            role="tab"
-            aria-selected={tab === t.key}
-            className={`tab${tab === t.key ? ' tab--active' : ''}`}
-            onClick={() => setTab(t.key)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </div>
-
+      <SectionLabel>Client &amp; team work</SectionLabel>
       <div className="stack">
-        {active.items.map((project, i) => (
+        {professionalProjects.map((project, i) => (
           <ProjectCard key={project.title} project={project} index={i} />
         ))}
       </div>

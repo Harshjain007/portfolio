@@ -1,31 +1,19 @@
-import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { sectionIds } from '../data/portfolio';
+import { useActiveSection } from '../hooks/useActiveSection';
 
 /** Right-hand dot rail that highlights the section currently in view. */
 export default function SectionNav() {
-  const [active, setActive] = useState<string>(sectionIds[0]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(visible.target.id);
-      },
-      { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] },
-    );
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const active = useActiveSection(sectionIds);
 
   return (
-    <nav className="dotnav" aria-label="Section navigation">
+    <motion.nav
+      className="dotnav"
+      aria-label="Section navigation"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1.1, duration: 0.6 }}
+    >
       {sectionIds.map((id) => (
         <a
           key={id}
@@ -34,9 +22,10 @@ export default function SectionNav() {
           aria-current={active === id ? 'true' : undefined}
           className={`dotnav__dot${active === id ? ' dotnav__dot--active' : ''}`}
         >
+          {active === id && <motion.span className="dotnav__ring" layoutId="dot-ring" />}
           <span className="dotnav__tip">{id}</span>
         </a>
       ))}
-    </nav>
+    </motion.nav>
   );
 }

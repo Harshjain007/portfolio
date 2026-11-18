@@ -5,21 +5,20 @@ export const siteConfig = {
   description:
     "Senior Full Stack Developer with 4+ years of experience delivering secure, scalable web applications across real-time gaming platforms, B2B/B2C admin dashboards, and multi-tenant microservices architectures. Expert in React.js, Node.js, PostgreSQL, MongoDB, Redis, BullMQ, Socket.IO, Docker, REST API design, JWT/RBAC, and CI/CD pipelines. Actively expanding into Generative AI, AI Agents, LLM integration, and MCP (Model Context Protocol).",
   email: "harsh8425@gmail.com",
-  phone: "+91 82510 87474",
-  location: "Indore, India",
+  location: "India · Remote",
   resumeUrl: "/portfolio/resume.pdf",
-  availability: "available for senior / freelance roles",
+  availability: "open to freelance projects & senior contracts",
   heroPitch:
-    "I build secure, scalable systems — real-time gaming platforms, B2B/B2C admin dashboards and multi-tenant microservices. Now pushing deep into Generative AI, agents and MCP.",
+    "A senior full stack engineer for hire. I turn product ideas into secure, real-time, production-ready software — 10+ gaming platforms delivered, plus a growing set of products I've designed and built end to end.",
   social: {
     github: "https://github.com/Harshjain007",
     linkedin: "https://www.linkedin.com/in/harsh-jain-0109/",
   },
   navLinks: [
-    { label: "Profile", href: "#about" },
-    { label: "Skills", href: "#skills" },
+    { label: "Products", href: "#products" },
+    { label: "Services", href: "#services" },
     { label: "Work", href: "#work" },
-    { label: "Timeline", href: "#timeline" },
+    { label: "Skills", href: "#skills" },
     { label: "Contact", href: "#contact" },
   ],
 };
@@ -27,10 +26,11 @@ export const siteConfig = {
 /** Sections tracked by the right-hand dot navigation, in document order. */
 export const sectionIds = [
   "hero",
+  "products",
+  "services",
   "about",
-  "skills",
   "work",
-  "timeline",
+  "skills",
   "contact",
 ] as const;
 
@@ -315,7 +315,7 @@ export const experiences: Experience[] = [
   },
   {
     company: "Gammastack (GrepRuby Webtech)",
-    location: "Indore",
+    location: "India",
     role: "Full Stack Developer | Solution Engineer",
     period: "Jun 2022 - Jan 2026",
     type: "fulltime",
@@ -332,7 +332,7 @@ export const experiences: Experience[] = [
   },
   {
     company: "Gammastack (GrepRuby Webtech)",
-    location: "Indore",
+    location: "India",
     role: "Frontend Developer Intern | Solution Engineer",
     period: "Jan 2022 - Jun 2022",
     type: "intern",

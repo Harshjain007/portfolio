@@ -1,5 +1,8 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { education, experiences } from '../data/portfolio';
+import { SectionLabel } from './motion';
+import { EASE } from '../hooks/ease';
 
 interface TimelineEntry {
   id: string;
@@ -37,20 +40,24 @@ function buildEntries(): TimelineEntry[] {
 /** Right column of the Work section. */
 export default function Timeline() {
   const entries = buildEntries();
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start 75%', 'end 55%'] });
+  const grow = useSpring(scrollYProgress, { stiffness: 110, damping: 24 });
 
   return (
     <div id="timeline">
-      <h2 className="sec-label">Timeline</h2>
+      <SectionLabel>Timeline</SectionLabel>
 
-      <div className="timeline">
+      <div className="timeline" ref={ref}>
+        <motion.span className="timeline__draw" style={{ scaleY: grow }} aria-hidden="true" />
         {entries.map((entry, i) => (
           <motion.div
             className={`tl-item${entry.muted ? ' tl-item--muted' : ''}`}
             key={entry.id}
-            initial={{ opacity: 0, x: 16 }}
+            initial={{ opacity: 0, x: 24 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: '-60px' }}
-            transition={{ delay: i * 0.05, duration: 0.45 }}
+            transition={{ delay: i * 0.05, duration: 0.5, ease: EASE }}
           >
             <article className="panel panel--hover tl-card">
               <p className="tl-period">{entry.period}</p>
