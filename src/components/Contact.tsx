@@ -162,7 +162,7 @@ export default function Contact() {
               </div>
               <div className="field">
                 <label className="field__label" htmlFor="cf-email">Email address</label>
-                <input id="cf-email" className="field__input" type="email" placeholder="jane@company.com" value={formData.email} onChange={update('email')} required />
+                <input id="cf-email" className="field__input" type="email" placeholder="harsh8425@gmail.com" value={formData.email} onChange={update('email')} required />
               </div>
             </div>
 
